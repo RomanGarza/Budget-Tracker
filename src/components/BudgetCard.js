@@ -1,4 +1,4 @@
-import { Card, ProgressBar, Button, Stack } from "react-bootstrap";
+import { Button, Card, ProgressBar, Stack } from "react-bootstrap";
 import { currencyFormatter } from "../utils";
 
 export default function BudgetCard({
@@ -6,17 +6,19 @@ export default function BudgetCard({
   amount,
   max,
   gray,
+  hideButtons,
   onAddExpenseClick,
+  onViewExpensesClick,
 }) {
-  // background warning red if amount over max
-  const className = [];
+  const classNames = [];
   if (amount > max) {
-    className.push("bg-danger", "bg-opacity-10");
+    classNames.push("bg-danger", "bg-opacity-10");
   } else if (gray) {
-    className.push("bg-light");
+    classNames.push("bg-light");
   }
+
   return (
-    <Card className={className.join(" ")}>
+    <Card className={classNames.join(" ")}>
       <Card.Body>
         <Card.Title className="d-flex justify-content-between align-items-baseline fw-normal mb-3">
           <div className="me-2">{name}</div>
@@ -28,32 +30,35 @@ export default function BudgetCard({
               </span>
             )}
           </div>
-              </Card.Title>
-              {max && (
-        <ProgressBar
-          className="rounded-pill"
-          variant={getProgressBarVariant(amount, max)}
-          min={0}
-          max={max}
-          now={amount}
-        ></ProgressBar>
-              )}
-        <Stack direction="horizontal" gap="2" className="mt-4">
-          <Button
-            variant="outline-primary"
-            className="ms-auto"
-            onClick={onAddExpenseClick}
-          >
-            Add Expense
-          </Button>
-          <Button variant="outline-secondary">View Expenses</Button>
-        </Stack>
+        </Card.Title>
+        {max && (
+          <ProgressBar
+            className="rounded-pill"
+            variant={getProgressBarVariant(amount, max)}
+            min={0}
+            max={max}
+            now={amount}
+          />
+        )}
+        {!hideButtons && (
+          <Stack direction="horizontal" gap="2" className="mt-4">
+            <Button
+              variant="outline-primary"
+              className="ms-auto"
+              onClick={onAddExpenseClick}
+            >
+              Add Expense
+            </Button>
+            <Button onClick={onViewExpensesClick} variant="outline-secondary">
+              View Expenses
+            </Button>
+          </Stack>
+        )}
       </Card.Body>
     </Card>
   );
 }
 
-// function to get progress bar variant
 function getProgressBarVariant(amount, max) {
   const ratio = amount / max;
   if (ratio < 0.5) return "primary";

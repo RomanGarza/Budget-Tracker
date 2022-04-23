@@ -18,15 +18,15 @@ export const BudgetsProvider = ({ children }) => {
     return expenses.filter((expense) => expense.budgetId === budgetId);
   }
   // add expense
-  function addExpenses({ description, amount, budgetId }) {
+  function addExpense({ description, amount, budgetId }) {
     setExpenses((prevExpenses) => {
       return [...prevExpenses, { id: uuidV4(), description, amount, budgetId }];
     });
   }
 
-  function addBudget({ name, max}) {
+  // do not allow duplicate budget names
+  function addBudget({ name, max }) {
     setBudgets((prevBudgets) => {
-      // do not allow duplicate budget names
       if (prevBudgets.find((budget) => budget.name === name)) {
         return prevBudgets;
       }
@@ -35,15 +35,19 @@ export const BudgetsProvider = ({ children }) => {
   }
 
   function deleteBudget({ id }) {
+    setExpenses((prevExpenses) => {
+      return prevExpenses.map((expense) => {
+        if (expense.budgetId !== id) return expense;
+        return { ...expense, budgetId: UNCATEGORIZED_BUDGET_ID };
+      });
+    });
+
     setBudgets((prevBudgets) => {
-      // filter out the budget with the id
       return prevBudgets.filter((budget) => budget.id !== id);
     });
   }
-
   function deleteExpense({ id }) {
     setExpenses((prevExpenses) => {
-      // filter out the expense with the id
       return prevExpenses.filter((expense) => expense.id !== id);
     });
   }
@@ -54,7 +58,7 @@ export const BudgetsProvider = ({ children }) => {
         budgets,
         expenses,
         getBudgetExpenses,
-        addExpenses,
+        addExpense,
         addBudget,
         deleteBudget,
         deleteExpense,
