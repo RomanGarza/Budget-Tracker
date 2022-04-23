@@ -1,0 +1,20 @@
+body {
+  background-color: lightcyan;
+  font-weight: 300;
+  color: #222;
+  font-family: monospace;
+}
+
+#title {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 300;
+  color: #222;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #0017c5;
+}
+
+#card-styles {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
