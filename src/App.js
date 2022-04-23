@@ -8,6 +8,7 @@ import UncategorizedBudgetCard from "./components/UncategorizedBudgetCard";
 import TotalBudgetCard from "./components/TotalBudgetCard";
 import { useState } from "react";
 import { UNCATEGORIZED_BUDGET_ID, useBudgets } from "./contexts/BudgetsContext";
+import Logo from '../src/calculator.png';
 
 function App() {
   const [showAddBudgetModal, setShowAddBudgetModal] = useState(false);
@@ -25,6 +26,7 @@ function App() {
     <>
       <Container className="my-4">
         <Stack direction="horizontal" gap="2" className="mb-4">
+          <img className="title-logo" src={Logo} alt="icon" />
           <h1 id="title" className="me-auto">
             Budget Tracker
           </h1>
