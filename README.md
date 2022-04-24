@@ -1,3 +1,16 @@
+
+# Budget Tracker
+
+React.js Budget tracking app
+
+[Demo](https://budget-tracker-1.netlify.app/)
+
+## Tech Stack
+
+**Client:** React.js, CSS, HTML
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
